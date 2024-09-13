@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {mockSearchResults} from "../constants/mock";
+import {mockSearchResults} from "../constants/mock.js";
 
 const Search = () => {
     const[input, setInput] = useState("");
