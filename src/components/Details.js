@@ -21,7 +21,7 @@ const Details = ({ details }) => {
             <ul className="w-full h-full flex-col divide-y-1">
                 {Object.keys(detailsList).map((item) => {
                     return (
-                        <li key={item} className="flex justify-between p-2">
+                        <li key={item} className="flex justify-between p-3">
                             <span>{detailsList[item]}</span>
                             <span>
                                 {item === "marketCapitalization"
