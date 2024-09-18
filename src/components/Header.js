@@ -1,6 +1,7 @@
 import React from "react";
 import { mockCompanyDetails } from "../constants/mock.js";
 import Search from "./Search.js";
+import ThemeIcon from "./ThemeIcon.js";
 
 const Header = ({name}) => {
     return (
@@ -9,7 +10,7 @@ const Header = ({name}) => {
         <h1 className="text-5xl">{name}</h1>
         <Search/>
     </div>
-    {/*<ThemeIcon/>*/}
+   <ThemeIcon />
     </>
     );
 };
