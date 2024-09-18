@@ -21,7 +21,7 @@ const Details = ({details}) => {
         <ul className="w-full h-full flex-col justify-between divide-y-1">
             {Object.keys(detailsList).map((item) => {
                 return (
-                <li key={item}  className="flex-1 justify-between items-center">
+                <li key={item}  className="flex-1 justify-between p-2">
                     <span>{detailsList[item]}</span>
                     <span>{item === "marketCapitalization"? '${convertMillionToBillion(details[item])}B':
                      details[item]}</span>
