@@ -6,7 +6,7 @@ const SearchResults = ({results}) => {
         {results.map ((item) => {
             return (
             <li key={item.symbol}
-             className="cursor-pointer p-4 m-2 flex items-center justigy-between rounded-md hover:bg-indigo-200"
+             className="cursor-pointer p-4 m-2 flex items-center justify-between rounded-md hover:bg-indigo-200"
             >
                 <span>{item.symbol}</span>
                 <span>{item.description}</span>
