@@ -1,9 +1,9 @@
 import React from "react";
-import Card from "./Card.js";
 import { mockCompanyDetails } from "../constants/mock.js";
 import Header from "./Header.js";
 import Details from "./Details.js";
 import Overview from "./Overview.js";
+import Chart from "./Charts.js";
 
 const Dashboard = () => {
     return (
@@ -12,7 +12,7 @@ const Dashboard = () => {
         <Header name={mockCompanyDetails.name}/>
         </div>
         <div className="md:col-span-2 row-span-4">
-            <Card>Chart</Card> 
+            <Chart />
         </div>
         <div>
             <Overview symbol={mockCompanyDetails.ticker}
