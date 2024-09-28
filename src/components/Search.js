@@ -48,7 +48,7 @@ const Search = () => {
 
         {input && bestMatches.length > 0 ? (
             <SearchResults results={bestMatches}/>
-        ):null};
+        ):null}
 
          </div>
     );
