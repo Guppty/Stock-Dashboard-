@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     Area,
     AreaChart,
@@ -11,11 +11,14 @@ import { mockHistoricalData } from "../constants/mock.js"; // Ensure this is cor
 import Card from "./Card.js";
 import ChartFilter from "./ChartFilter.js";
 import { chartConfig } from "../constants/config.js"; // Adjust the path as needed
+import ThemeContext from "../context/ThemeContext.js";
+
 
 const Chart = () => {
     const [data, setData] = useState(mockHistoricalData);
     const [filter, setFilter] = useState('1D'); // Set default filter to '1D'
 
+const {darkMode} = useContext(ThemeContext);
     const formatData = () => {
         return data.c.map((item, index) => {
             const dateObject = new Date(data.t[index] * 1000); // Convert seconds to milliseconds
@@ -43,11 +46,19 @@ const Chart = () => {
                 ))}
             </ul>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={formatData()}>
+                <AreaChart data={formatData(data)}>
                     <defs>
                         <linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="rgb(199 210 254)" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="rgb(199 210 254)" stopOpacity={0} />
+                            <stop 
+                            offset="5%" 
+                            stopColor={darkMode ? "#312e81" : "rgb(199 210 254) "}
+                            stopOpacity={0.8} 
+                            />
+                            <stop 
+                            offset="95%" 
+                            stopColor= {darkMode ? "#312e81" : "rgb(199 210 254) "}
+                             stopOpacity={0} 
+                             />
                         </linearGradient>
                     </defs>
                     <Area 
@@ -58,7 +69,10 @@ const Chart = () => {
                         strokeWidth={0.5}
                         fill="url(#chartColor)"
                     />
-                    <Tooltip />
+                    <Tooltip 
+                    contentStyle={darkMode ? {backgroundColor: "#111827"} :null}
+                    itemStyle={darkMode ? {color: "#818cf8"} :null}
+                    />
                     <XAxis dataKey="date" />
                     <YAxis domain={["dataMin", "dataMax"]} />
                 </AreaChart>
