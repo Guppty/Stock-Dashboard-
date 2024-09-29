@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
-import {mockSearchResults} from "../constants/mock.js";
 import {XIcon, SearchIcon} from "@heroicons/react/solid/index.js";
 import SearchResults from "./SearchResults.js";
 import ThemeContext from "../context/ThemeContext.js";
+import { searchSymbols } from "../api/stock-api.js";
 
 const Search = () => {
     const[input, setInput] = useState("");
-    const[bestMatches, setBestMatches] = useState(mockSearchResults.result);
+    const[bestMatches, setBestMatches] = useState([]);
     
     const {darkMode} = useContext(ThemeContext);
 
@@ -15,8 +15,18 @@ const Search = () => {
         setBestMatches([]);
     };
 
-    const updateBestMatches = () => {
-        setBestMatches(mockSearchResults.result);
+    const updateBestMatches = async() => {
+        try {
+            if (input) {
+                const searchResults = await searchSymbols(input);
+                const result = searchResults.result;
+                setBestMatches(result);
+            }
+        } catch (error) {
+            setBestMatches([]);
+            console.log(error);
+            
+        }
     };
     
     return(
