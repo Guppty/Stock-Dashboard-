@@ -11,3 +11,7 @@ export default searchSymbols = async (query) => {
 
     return await response.json();
 };
+
+export const fetchStockDetails = async(stockSymbol) => {
+    const url = `${basePath}/stock/profile2?symbol=${stockSymbol}&token=${process.env.REACT_APP_API_KEY}`;
+};
