@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { mockCompanyDetails } from "../constants/mock.js";
 import Header from "./Header.js";
 import Details from "./Details.js";
 import Overview from "./Overview.js";
@@ -35,6 +34,9 @@ const Dashboard = () => {
                 console.log(error);
             }
         };
+
+        updateStockDetails();
+        updateStockOverview();
     }, [stockSymbol]);
     return (
     <div
@@ -42,22 +44,23 @@ const Dashboard = () => {
         darkMode ? "bg-gray-900 text-gray-300" : " bg-neutral-100 "
         }`}
         >
-        <div className=" col-span-1 md:col-span-2 xl:col-span-3 row-span-1 flex justify-start items-center">
-        <Header name={mockCompanyDetails.name}/>
+        <div className="col-span-1 md:col-span-2 xl:col-span-3 row-span-1 flex justify-start items-center">
+        <Header name={stockDetails.name}/>
         </div>
         <div className="md:col-span-2 row-span-4">
             <Chart />
         </div>
         <div>
-            <Overview symbol={mockCompanyDetails.ticker}
-             price={300} 
-             change={30} 
-             changePercent={10.0} 
-             currency={"USD"}
+            <Overview 
+             symbol={stockSymbol}
+             price={quote.pc} 
+             change={quote.d} 
+             changePercent={quote.dp} 
+             currency={stockDetails.currency}
              />
         </div>
         <div className="row-span-2 xl:row-span-3">
-            <Details details={mockCompanyDetails} />
+            <Details details={stockDetails} />
         </div>
     </div>
     );
