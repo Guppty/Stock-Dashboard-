@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
     Area,
     AreaChart,
@@ -7,24 +7,51 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
-import { mockHistoricalData } from "../constants/mock.js"; // Ensure this is correctly imported
+import { chartConfig } from "../constants/config.js"; 
+import { mockHistoricalData } from "../constants/mock.js"; 
+import ThemeContext from "../context/ThemeContext.js";
+import {
+    convertUnixTimestampToDate,
+     convertDateToUnixTimestamp, 
+     createDate
+    } from "../helpers/date-helper.js"
 import Card from "./Card.js";
 import ChartFilter from "./ChartFilter.js";
-import { chartConfig } from "../constants/config.js"; // Adjust the path as needed
-import ThemeContext from "../context/ThemeContext.js";
-
+import { fetchHistoricalData } from "../api/stock-api.js";
+import StockContext from "../context/StockContext.js";
 
 const Chart = () => {
     const [data, setData] = useState(mockHistoricalData);
-    const [filter, setFilter] = useState('1D'); // Set default filter to '1D'
+    const [filter, setFilter] = useState('1W'); 
 
 const {darkMode} = useContext(ThemeContext);
+const {stockSymbol} = useContext(StockContext);
+
+useEffect(() => {
+    const getDateRange = () => {
+        const { days, weeks, months, years } = chartConfig[filter];
+
+        const endDate = new Date();
+        const startDate = createDate(endDate, -days, -weeks, -months, -years);
+  
+        const startTimestampUnix = convertDateToUnixTimestamp(startDate);
+        const endTimestampUnix = convertDateToUnixTimestamp(endDate);
+       
+        return { startTimestampUnix, endTimestampUnix };
+    };
+    
+    const updateChartData = async () => {
+      
+    }
+        
+}, [stockSymbol,filter]);
+
     const formatData = () => {
         return data.c.map((item, index) => {
-            const dateObject = new Date(data.t[index] * 1000); // Convert seconds to milliseconds
+            const dateObject = new Date(data.t[index] * 1000); 
             return {
-                value: item.toFixed(2), // Format the value to 2 decimal places
-                date: dateObject.toLocaleDateString(), // Convert to a readable date string
+                value: item.toFixed(2), 
+                date: convertUnixTimestampToDate(data.t[index]),
             };
         });
     };
