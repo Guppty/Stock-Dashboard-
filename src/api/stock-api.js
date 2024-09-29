@@ -1,5 +1,6 @@
 const basePath = "https://finnhub.io/api/v1";
 
+
 export const searchSymbols = async (query) => {
     const url = `${basePath}/search?q=${query}&token=${process.env.REACT_APP_API_KEY}`;
     const response = await fetch(url);
@@ -14,26 +15,26 @@ export const searchSymbols = async (query) => {
 
 export const fetchStockDetails = async(stockSymbol) => {
     const url = `${basePath}/stock/profile2?symbol=${stockSymbol}&token=${process.env.REACT_APP_API_KEY}`;
-    const respone = await fetch(url);
+    const response = await fetch(url);
 
     if (!response.ok) {
-        const message = `An Error has occured: ${respone.status}`;
+        const message = `An Error has occured: ${response.status}`;
         throw new Error(message);
     }
 
-    return await respone.json();
+    return await response.json();
 };
 
 export const fetchQuote = async (stockSymbol) => {
     const url = `${basePath}/quote?symbol=${stockSymbol}&token=${process.env.REACT_APP_API_KEY}`
-    const respone = await fetch(url);
+    const response = await fetch(url);
 
     if (!response.ok) {
-        const message = `An Error has occured: ${respone.status}`;
+        const message = `An Error has occured: ${response.status}`;
         throw new Error(message);
     }
 
-    return await respone.json();
+    return await response.json();
 }
 
 export const fetchHistoricalData = async (
@@ -43,12 +44,12 @@ export const fetchHistoricalData = async (
     to 
 )  => {
     const url = `${basePath}/stock/candle?symbol=${stockSymbol}&resolution=${resolution}&from=${from}&to${to}&token=${process.env.REACT_APP_API_KEY}`;
-    const respone = await fetch(url);
+    const response = await fetch(url);
 
     if (!response.ok) {
-        const message = `An Error has occured: ${respone.status}`;
+        const message = `An Error has occured: ${response.status}`;
         throw new Error(message);
     }
 
-    return await respone.json();
+    return await response.json();
 };
