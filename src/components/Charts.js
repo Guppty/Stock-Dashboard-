@@ -8,7 +8,6 @@ import {
     YAxis,
 } from "recharts";
 import { chartConfig } from "../constants/config.js"; 
-import { mockHistoricalData } from "../constants/mock.js"; 
 import ThemeContext from "../context/ThemeContext.js";
 import {
     convertUnixTimestampToDate,
@@ -21,11 +20,20 @@ import { fetchHistoricalData } from "../api/stock-api.js";
 import StockContext from "../context/StockContext.js";
 
 const Chart = () => {
-    const [data, setData] = useState(mockHistoricalData);
+    const [data, setData] = useState([]);
     const [filter, setFilter] = useState('1W'); 
 
 const {darkMode} = useContext(ThemeContext);
 const {stockSymbol} = useContext(StockContext);
+
+const formatData = (data) => {
+    return data.c.map((item, index) => {
+        return {
+            value: item.toFixed(2), 
+            date: convertUnixTimestampToDate(data.t[index]),
+        };
+    });
+};
 
 useEffect(() => {
     const getDateRange = () => {
@@ -60,15 +68,6 @@ useEffect(() => {
     updateChartData();
 }, [stockSymbol,filter]);
 
-    const formatData = () => {
-        return data.c.map((item, index) => {
-            const dateObject = new Date(data.t[index] * 1000); 
-            return {
-                value: item.toFixed(2), 
-                date: convertUnixTimestampToDate(data.t[index]),
-            };
-        });
-    };
 
     return (
         <Card>
@@ -87,7 +86,7 @@ useEffect(() => {
                 ))}
             </ul>
             <ResponsiveContainer /* width="100%" height={300} */>
-                <AreaChart data={formatData(data)}>
+                <AreaChart data={data}>
                     <defs>
                         <linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
                             <stop 
