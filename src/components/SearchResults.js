@@ -11,7 +11,7 @@ const SearchResults = ({results}) => {
         darkMode 
         ? "bg-gray-900 border-gray-800 custom-scrollbar custom-scrollbar-dark" 
         : "bg-white border-neutral-200 custom-scrollbar"
-        }`}
+        } transition duartion-300`}
         > 
         {results.map ((item) => {
             return (
@@ -19,7 +19,7 @@ const SearchResults = ({results}) => {
              key={item.symbol}
              className= {`cursor-pointer p-4 m-2 flex items-center justify-between rounded-md ${
                 darkMode? "hover:bg-indigo-600": "hover:bg-indigo-200"
-            }`}
+            } `}
             onClick={() => {
                 setStockSymbol(item.symbol);
             }}

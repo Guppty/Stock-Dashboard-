@@ -72,14 +72,13 @@ useEffect(() => {
     return (
         <Card>
             <ul className="flex absolute top-2 right-2 z-40">
-                {Object.keys(chartConfig).map((key) => (
-                    <li key={key}>
+                {Object.keys(chartConfig).map((item) => (
+                    <li key={item}>
                         <ChartFilter 
-                            text={key} 
-                            active={filter === key} 
+                            text={item} 
+                            active={filter === item} 
                             onClick={() => {
-                                setFilter(key);
-                                console.log(`Filter set to: ${key}`);
+                                setFilter(item);
                             }} 
                         />
                     </li>
