@@ -1,5 +1,4 @@
 import React from "react";
-import { mockCompanyDetails } from "../constants/mock.js";
 import Search from "./Search.js";
 import ThemeIcon from "./ThemeIcon.js";
 
