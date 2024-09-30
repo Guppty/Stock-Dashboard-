@@ -41,9 +41,23 @@ useEffect(() => {
     };
     
     const updateChartData = async () => {
-      
-    }
-        
+      try {
+        const {startTimestampUnix, endTimestampUnix} = getDateRange();
+        const resolution = chartConfig[filter].resolution;
+        const result = await fetchHistoricalData(
+            stockSymbol,
+            resolution,
+            startTimestampUnix,
+            endTimestampUnix
+        );
+        setData(formatData(result));
+      } catch (error) {
+        setData([]);
+        console.log(error);
+      }
+    };
+
+    updateChartData();
 }, [stockSymbol,filter]);
 
     const formatData = () => {
@@ -72,7 +86,7 @@ useEffect(() => {
                     </li>
                 ))}
             </ul>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer /* width="100%" height={300} */>
                 <AreaChart data={formatData(data)}>
                     <defs>
                         <linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
