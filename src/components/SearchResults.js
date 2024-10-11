@@ -11,7 +11,7 @@ const SearchResults = ({results}) => {
         darkMode 
         ? "bg-gray-900 border-gray-800 custom-scrollbar custom-scrollbar-dark" 
         : "bg-white border-neutral-200 custom-scrollbar"
-        } transition duartion-300`}
+        } transition duration-300`}
         > 
         {results.map ((item) => {
             return (
